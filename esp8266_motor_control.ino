@@ -4,7 +4,6 @@
  * Author  : Hari Kumar (2022UGEC018)
  * Project : Implementation of Movable Road Divider Using IoT
  * College : National Institute of Technology, Jamshedpur
- * Date    : November 2024
  *
  * Description:
  *   The ESP8266 hosts a lightweight HTTP web server over a Wi-Fi Access Point.
