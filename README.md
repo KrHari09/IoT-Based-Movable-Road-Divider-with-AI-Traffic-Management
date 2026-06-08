@@ -42,3 +42,9 @@ Traditional road dividers are **static** — they can't respond to changing traf
 |  **Multi-directional Movement** | Forward, backward, left, right, and all diagonal directions supported |
 
 ---
+
+##  System Architecture
+
+
+
+
