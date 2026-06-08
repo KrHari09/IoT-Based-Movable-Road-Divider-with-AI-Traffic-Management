@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+.env
+venv/
+
+# Images (large files — add your own samples)
+*.jpg
+*.jpeg
+*.png
+*.bmp
+!assets/*.png
+
+# ML Models (too large for git — store in releases or Google Drive)
+models/*.tflite
+models/*.pt
+models/*.onnx
+
+# Arduino
+*.elf
+*.bin
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
