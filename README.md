@@ -75,6 +75,7 @@ Traditional road dividers are **static** — they can't respond to changing traf
 ---
 
 ##  Project Structure
+<img width="1440" height="1240" alt="image" src="https://github.com/user-attachments/assets/cd88efcf-fa86-4e04-b0ac-83d2325a4c94" />
 
 
 
