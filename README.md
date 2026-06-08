@@ -45,6 +45,36 @@ Traditional road dividers are **static** — they can't respond to changing traf
 
 ##  System Architecture
 
+<img width="1440" height="1080" alt="image" src="https://github.com/user-attachments/assets/61d5287c-9779-4d65-aa94-b5206510aa49" />
+
+---
+
+##  Hardware Components
+
+| Component | Role |
+|---|---|
+| **Raspberry Pi 4** | Central processing unit — runs image processing & ML inference |
+| **ESP8266 (NodeMCU)** | Wi-Fi communication & web server for remote motor control |
+| **Pi Camera Module** | Real-time image capture for traffic analysis |
+| **L298N Motor Driver** | H-Bridge dual-motor controller for divider movement |
+| **DC Motors (x2)** | Physical movement of the road divider |
+| **Ultrasonic Sensors (HC-SR04)** | Proximity detection to prevent collisions |
+| **Power Supply (12V)** | Powers motors and microcontrollers |
+
+### Pin Mapping (ESP8266 ↔ L298N)
+
+| ESP8266 GPIO | L298N Pin | Function |
+|---|---|---|
+| GPIO14 (D5) | ENA | Right motor speed (PWM) |
+| GPIO12 (D6) | ENB | Left motor speed (PWM) |
+| GPIO15 (D8) | IN1 | Right motor direction |
+| GPIO13 (D7) | IN2 | Right motor direction |
+| GPIO2 (D4) | IN3 | Left motor direction |
+| GPIO0 (D3) | IN4 | Left motor direction |
+
+---
+
+##  Project Structure
 
 
 
