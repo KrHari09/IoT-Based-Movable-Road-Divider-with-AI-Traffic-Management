@@ -1,0 +1,193 @@
+# Project Report: Implementation of Movable Road Divider Using IoT
+
+**Author:** Hari Kumar (2022UGEC018)  
+**Degree:** B.Tech (Hons.) — Electronics and Communication Engineering  
+**Institution:** National Institute of Technology, Jamshedpur  
+**Supervisor:** Dr. Basudeb Behera, Assistant Professor, Dept. of ECE  
+
+---
+
+## Chapter 1 — Overview
+
+### 1.1 Introduction
+
+The project addresses the challenges of traffic congestion and inefficient lane management. Traditional road dividers are static and unable to adapt to changing traffic patterns, causing delays and accidents. By integrating the ESP8266 microcontroller, IoT technology, and image processing, this system enables dynamic lane adjustments based on real-time traffic data.
+
+Cameras and sensors capture traffic conditions, which are analyzed to control the divider's movement automatically. The ESP8266 ensures cost-effective wireless connectivity and efficient data processing. This innovative solution enhances traffic flow, reduces accidents, and promotes smarter urban traffic management.
+
+### 1.2 Motivation
+
+Traditional fixed dividers often fail to adapt to dynamic traffic patterns, leading to congestion and delays. By leveraging IoT technology, this system enables real-time adjustments to lane distribution based on traffic flow, improving efficiency during peak hours or emergencies. The automated and remote-controlled mechanism ensures minimal human intervention, reducing errors and labor costs. Additionally, it supports better resource utilization, minimizes accidents caused by improper lane usage, and contributes to smarter, more sustainable urban infrastructure.
+
+### 1.3 Literature Review
+
+| Year | Paper | Authors | Key Contribution |
+|------|-------|---------|-----------------|
+| 2018 | *Implementation of movable road divider using IoT* | Hemlata Dalmia, Kareddy Damini, Aravind Goud Nakka | Foundational technical perspective on movable dividers; design procedures and measurement setup |
+| 2021 | *Controlling of traffic using movable road dividers* | Neha Arukia et al. | Benefits analysis: full road-width efficiency without widening, reduced land acquisition cost |
+
+---
+
+## Chapter 2 — Theoretical Study
+
+### 2.1 Working Principle
+
+The movable road divider system works by using IoT devices to detect current traffic conditions and automatically adjust the position of the divider. Key components like cameras or sensors collect data, which is analyzed using image processing and machine learning techniques. Based on this analysis, the system decides the optimal lane configuration, and the divider is shifted accordingly.
+
+The system also uses communication protocols such as Wi-Fi to enable remote control. Motor drivers control the movement of the physical divider, while a microcontroller manages communication between the sensors, the control system, and the motors. Ultrasonic sensors are used to monitor the proximity of vehicles, ensuring the divider moves safely without collisions.
+
+### 2.2 Key Components
+
+#### 2.2.1 Raspberry Pi
+The Raspberry Pi acts as the central processing unit. It runs the image processing algorithms, processes data from sensors, and communicates with IoT devices. Its high computational power and extensive I/O make it ideal for integrating cameras, sensors, and network connectivity.
+
+#### 2.2.2 ESP8266
+The ESP8266 is a low-cost Wi-Fi module serving as the communication interface. It enables remote control and data transmission, allowing the system to communicate with a central server or user interface over the internet. It ensures real-time adjustments from mobile or desktop applications.
+
+#### 2.2.3 Ultrasonic Sensors
+Ultrasonic sensors detect the presence of vehicles near the road divider using sound waves to measure proximity. The data is fed into the Raspberry Pi for safe movement decisions.
+
+#### 2.2.4 L298N Motor Driver
+The L298N motor driver controls movement of the road divider. It allows bidirectional DC motor control, enabling the divider to reposition in real time based on control signals from the Raspberry Pi or ESP8266.
+
+#### 2.2.5 Image Processing and Computer Vision
+Cameras capture real-time images of traffic flow, processed by algorithms on the Raspberry Pi. The system detects vehicle count, identifies congestion, and determines when lane adjustments are needed.
+
+#### 2.2.6 Power Supply
+A combination of AC/DC adapters and batteries powers the Raspberry Pi, ESP8266, sensors, and motors. The system is designed for continuous availability.
+
+### 2.3 System Architecture
+
+The architecture consists of four layers:
+
+| Layer | Components | Function |
+|-------|-----------|----------|
+| **Sensor Layer** | Pi Camera, Ultrasonic Sensors | Real-time data acquisition |
+| **Processing Layer** | Raspberry Pi, ESP8266 | Image processing, ML inference, network comms |
+| **Actuation Layer** | L298N Motor Driver, DC Motors | Physical divider movement |
+| **Control Layer** | Mobile/Desktop App | Remote monitoring and override |
+
+### 2.4 System Workflow
+
+1. **Data Acquisition** — Sensors and cameras continuously collect traffic data
+2. **Data Processing** — Raspberry Pi processes images with YOLOv5 TFLite inference
+3. **Decision Making** — System determines optimal divider position based on vehicle counts
+4. **Actuation** — L298N motor driver moves the divider per Raspberry Pi signals
+5. **Communication** — ESP8266 provides remote monitoring and manual override capability
+
+### 2.5 Advantages
+
+- **Dynamic Lane Management** — Real-time lane adjustments reduce peak-hour congestion
+- **Improved Traffic Flow** — Reduces travel times and minimizes bottlenecks
+- **Safety and Efficiency** — Ultrasonic sensors ensure collision-free movement
+- **Cost-Effective** — Easily retrofitted into existing roadways
+- **Remote Control** — IoT integration reduces need for manual intervention
+
+### 2.6 Challenges and Limitations
+
+- **High Initial Cost** — Cameras, sensors, and IoT devices incur significant upfront cost
+- **Maintenance** — Sensors, motors, and comms require regular upkeep
+- **Connectivity Issues** — Wireless dependency creates vulnerability in low-coverage areas
+- **Traffic Density** — Extremely dense conditions may cause confusion with frequent adjustments
+
+---
+
+## Chapter 3 — Image Processing in Traffic Management
+
+Image processing enables the system to monitor and evaluate traffic patterns with high precision. By analyzing visual data, the system can:
+
+- Detect the density of vehicles on specific lanes
+- Identify congested areas in real time
+- Measure vehicle speed and count vehicles
+- Predict lane requirements based on traffic behavior
+
+### 3.1 Components Used
+
+- **Camera / Imaging Device** — Captures real-time images or video
+- **Raspberry Pi** — Processes image data using Python libraries and ML models
+- **OpenCV / TFLite Runtime** — Libraries for image processing and inference
+
+### 3.2 Techniques Applied
+
+- **YOLOv5 Object Detection** — Real-time vehicle detection using a quantized TFLite model
+- **Non-Maximum Suppression (NMS)** — Filters duplicate bounding boxes using IoU thresholding, implemented in pure NumPy
+- **Confidence Thresholding** — Filters weak detections (threshold: 0.5)
+- **Bounding Box Annotation** — Draws labeled boxes on detected vehicles for visualization
+
+### 3.3 Software Used
+
+- Python 3.x
+- `tflite-runtime` — Lightweight TFLite inference on Raspberry Pi
+- `Pillow (PIL)` — Image loading, drawing, and saving
+- `NumPy` — Tensor operations and custom NMS
+- `Picamera2` — Camera interface for Raspberry Pi
+
+### 3.4 Advantages of Image Processing
+
+- Fully automated — no human operator needed for vehicle counting
+- Scalable to multiple camera feeds
+- Model can be updated independently of hardware
+
+### 3.5 Challenges
+
+- Lighting variability affects detection accuracy
+- Processing latency on Raspberry Pi (~1–2s per frame without GPU)
+- Occlusion in dense traffic reduces per-vehicle detection accuracy
+
+### 3.6 Future Enhancements
+
+- Deploy on Coral Edge TPU for 5–10× faster inference
+- Add lane segmentation to track per-lane density separately
+- Implement motion tracking across frames for speed estimation
+
+---
+
+## Chapter 4 — ESP8266 in Traffic Management
+
+The ESP8266 microcontroller hosts a lightweight HTTP web server over a soft Access Point (AP). A mobile application sends HTTP GET requests with a `State` parameter to control motor direction and speed.
+
+**Key capabilities:**
+- Creates a Wi-Fi AP (`Make DIY`) — no router needed
+- Handles 8 movement directions plus stop
+- Supports 10-level PWM speed control (400–1023)
+- Responds to commands with <10ms latency on local network
+
+See the full annotated source code in `src/esp8266/esp8266_motor_control.ino`.
+
+---
+
+## Chapter 5 — Demonstration
+
+The prototype successfully demonstrated:
+
+- Vehicle detection and counting in outdoor test conditions
+- ESP8266 receiving motor commands over Wi-Fi from a mobile app
+- Bidirectional divider movement controlled by L298N motor driver
+- Real-time annotated images showing bounding boxes around detected vehicles
+- Lane decision logic (high traffic → expand lane, low traffic → reduce lane width)
+
+---
+
+## Chapter 6 — Conclusion
+
+This project successfully demonstrated a proof-of-concept for an IoT-based movable road divider. By combining embedded systems (ESP8266), computer vision (YOLOv5 TFLite), and motor control (L298N), the system can dynamically respond to traffic conditions with minimal human intervention.
+
+The custom NumPy-based NMS implementation proved lightweight and effective for Raspberry Pi deployment. The ESP8266 web server provided reliable, low-latency remote control over a local Wi-Fi AP.
+
+### Future Scope
+
+- Integrate image processing output directly with motor control (close the feedback loop)
+- Replace Wi-Fi AP with 4G/LTE for city-scale deployment
+- Develop a web dashboard with real-time traffic analytics
+- Explore solar-powered operation for roadside installation
+- Evaluate Coral Edge TPU for accelerated on-device inference
+
+---
+
+## References
+
+1. Hemlata Dalmia, Kareddy Damini, Aravind Goud Nakka. *Implementation of movable road divider using Internet of Things (IoT)*, 2018.
+2. Neha Arukia, Kuldeep Deshmukh, Sohel Khan, et al. *Controlling of traffic using movable road dividers*, 2021.
+3. Jocher, G. et al. *YOLOv5 by Ultralytics*, 2020. https://github.com/ultralytics/yolov5
+4. Raspberry Pi Foundation. *Picamera2 Library Documentation*, 2023.
+5. ESP8266 Community. *ESP8266 Arduino Core Documentation*, 2024.
